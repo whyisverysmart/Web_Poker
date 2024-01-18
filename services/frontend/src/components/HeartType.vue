@@ -1,7 +1,6 @@
 <style>
-/*TODO*/
+/*TODO background-color?*/
 .card-container {
-    background-color: #c5c5c5;
     display: flex;
     height: 100%;
 }

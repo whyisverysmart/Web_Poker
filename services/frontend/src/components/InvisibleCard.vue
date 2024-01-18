@@ -3,7 +3,7 @@
     font-size: xx-large;
     text-align: center;
     color: blue;
-    background-color: #c5c5c5;
+    background-color: #dedede;
     height: 100%;
     width: 100%;
 }

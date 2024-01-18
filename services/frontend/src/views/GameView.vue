@@ -27,6 +27,11 @@
     height: 40%;
 }
 
+.my-info {
+    flex: 1;
+    font-size: large;
+    margin: 8px;
+}
 
 .my-card {
     flex: 1;
@@ -34,6 +39,12 @@
     margin: 2%;
     height: auto;
     font-size: large;
+    color: brown;
+}
+
+.my-token {
+    font-size: large;
+    margin: 8px;
     color: brown;
 }
 
@@ -66,18 +77,22 @@
     <br />
     <el-row>
         <el-col :span="6">
-            <div style="flex: 1;">Player 4 and information</div>
-            <div style="flex: 1;">
-                <p>Card 1</p>
-                <p>Card 2</p>
-            </div>
+            <PlayerPart />
         </el-col>
-        <el-col :span="6"><p>5</p></el-col>
-        <el-col :span="6"><p>6</p></el-col>
-        <el-col :span="6"><p>7</p></el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
     </el-row>
     <el-row>
-        <el-col :span="6"><p>3</p></el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
         <el-col :span="12" class="desk-up">
             <!--Public Card 1-->
             <div class="public-card">
@@ -104,24 +119,32 @@
                 <InvisibleCard />
             </div>
         </el-col>
-        <el-col :span="6"><p>8</p></el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
     </el-row>
     <el-row>
-        <el-col :span="6"><p>2</p></el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
         <el-col :span="12" class="desk-down">
             <div class="down-component">BB: 200?</div>
             <div class="down-component">Port: 000?</div>
             <div class="down-component">History movements: ?</div>
         </el-col>
-        <el-col :span="6"><p>9</p></el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
     </el-row>
     <el-row>
-        <el-col :span="6">1</el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
 
         <!--Mine Part-->
         <el-col :span="12">
             <!--Mine Info-->
-            <div style="flex: 1;">Mine</div>
+            <div class="my-info">Mine</div>
             <!--Mine Cards-->
             <div style="flex: 2; margin: 5px;">
                 <div style="display: flex; height: 100%;">
@@ -142,7 +165,7 @@
                     <el-input-number v-model="amount" size="large" :step="200" style="flex: 3;"/>
                     <el-button type="success" size="large" style="flex: 1;">Raise</el-button>
                 </div>
-                <p>Your Tokens: 000</p>
+                <div class="my-token">Your Tokens: 000000</div>
                 <div style="display: flex;">
                     <el-button type="primary" size="large" style="flex: 1;">Check</el-button>
                     <el-button type="success" size="large" style="flex: 1;">Call</el-button>
@@ -151,7 +174,9 @@
             </div>
         </el-col><!-- /Mine -->
 
-        <el-col :span="6">10</el-col>
+        <el-col :span="6">
+            <PlayerPart />
+        </el-col>
     </el-row>
 </template>
 
@@ -163,6 +188,7 @@ import SpadeType from '@/components/SpadeType.vue';
 import ClubType from '@/components/ClubType.vue';
 import InvisibleCard from '@/components/InvisibleCard.vue';
 import FoldedCard from '@/components/FoldedCard.vue';
+import PlayerPart from '@/components/PlayerPart.vue';
 
 export default {
     name: 'GameView',
@@ -173,6 +199,7 @@ export default {
         ClubType,
         InvisibleCard,
         FoldedCard,
+        PlayerPart,
     },
     data() {
         return {
