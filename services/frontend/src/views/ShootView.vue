@@ -205,10 +205,7 @@ export default {
         return {
             amount: 0,
         }
-    },
-    methods: {
-        //TODO
-    },
+    }
 }
 </script>
   
