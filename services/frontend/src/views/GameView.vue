@@ -129,8 +129,12 @@
         </el-col>
         <el-col :span="12" class="desk-down">
             <div class="down-component">BB: 200?</div>
-            <div class="down-component">Port: 000?</div>
-            <div class="down-component">History movements: ?</div>
+            <div class="down-component">Port: {{ port }}</div>
+            <div class="down-component">
+                <li v-for="(mov,index) in movements" :key="index">
+                    {{ mov }}
+                </li>
+            </div>
         </el-col>
         <el-col :span="6">
             <PlayerPart />
@@ -162,14 +166,14 @@
             <!--Mine commit-->
             <div style="flex: 2; margin: 20px;">
                 <div style="display: flex;">
-                    <el-input-number v-model="amount" size="large" :step="200" style="flex: 3;"/>
-                    <el-button type="success" size="large" style="flex: 1;">Raise</el-button>
+                    <el-input-number v-model="myBet" size="large" :step="200" style="flex: 3;"/>
+                    <el-button @click="raise" type="success" size="large" style="flex: 1;">Raise</el-button>
                 </div>
-                <div class="my-token">Your Tokens: 000000</div>
+                <div class="my-token">Your Tokens: {{ myToken }}</div>
                 <div style="display: flex;">
-                    <el-button type="primary" size="large" style="flex: 1;">Check</el-button>
-                    <el-button type="success" size="large" style="flex: 1;">Call</el-button>
-                    <el-button type="danger" size="large" style="flex: 1;">Fold</el-button>
+                    <el-button @click="check" type="primary" size="large" style="flex: 1;">Check</el-button>
+                    <el-button @click="call" type="success" size="large" style="flex: 1;">Call</el-button>
+                    <el-button @click="fold" type="danger" size="large" style="flex: 1;">Fold</el-button>
                 </div>
             </div>
         </el-col><!-- /Mine -->
@@ -182,6 +186,8 @@
 
 <script>
 
+//import { ref } from 'vue';
+
 import HeartType from '@/components/HeartType.vue';
 import DiamondType from '@/components/DiamondType.vue';
 import SpadeType from '@/components/SpadeType.vue';
@@ -189,6 +195,7 @@ import ClubType from '@/components/ClubType.vue';
 import InvisibleCard from '@/components/InvisibleCard.vue';
 import FoldedCard from '@/components/FoldedCard.vue';
 import PlayerPart from '@/components/PlayerPart.vue';
+import { useStore } from 'vuex';
 
 export default {
     name: 'GameView',
@@ -203,11 +210,40 @@ export default {
     },
     data() {
         return {
-            amount: 0,
+            playerName: 'why',
+            myToken: 10000,
+            currentBet: 200,
+            myBet: 0,
+            port: 0,
+            movements: [],
         }
     },
     methods: {
-        //TODO
+        raise() {
+            useStore().Raise(1, this.myBet);
+        },
+        check() {
+            //TODO 可以使用ref
+            this.movements.push(this.playerName + ': Check');
+            //固定只有最近三个movements
+            var len = this.movements.length;
+            if (len > 4) this.movements = this.movements.slice(len-4);
+            return;
+        },
+        call() {
+            this.movements.push(this.playerName + ': Call ' + this.currentBet);
+            var len = this.movements.length;
+            if (len > 4) this.movements = this.movements.slice(len-4);
+            this.myToken -= this.currentBet;
+            this.port += this.currentBet;
+            return;
+        },
+        fold() {
+            this.movements.push(this.playerName + ': Fold');
+            var len = this.movements.length;
+            if (len > 4) this.movements = this.movements.slice(len-4);
+            return;
+        },
     },
 }
 </script>

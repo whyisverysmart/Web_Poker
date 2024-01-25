@@ -1,8 +1,11 @@
-import axios from 'axios';
+//import axios from 'axios';
 
 const state = {
-    data: null,
-    keyword: null
+    playerName: [],
+    playerToken: [],
+    port: 0,
+    currentBet: 200,
+    movements: [],
 };
 
 const getters = {
@@ -10,21 +13,18 @@ const getters = {
 };
 
 const actions = {
-    async search_by_title({dispatch}, para) {
-        //console.log(para);
-        const response = await axios.post('search', {
-                "keyword": para[0],
-                "data_type": para[2],
-                "method": para[1]
-            });
-        //console.log(response);
-        await dispatch('getData', response);
-    },
-    async getData({commit}, response) {
-        commit('setData', response); 
-    },
-    async getKeyWord({commit}, keyword) {
-        commit('setKeyWord', keyword);
+    async Raise(playerIndex, myBet) {
+        if (myBet < 2*state.currentBet || myBet <= 0) {
+            alert('Not Allowed');
+            return;
+        }
+        state.movements.push(state.playerName[playerIndex] + ': Raise to ' + myBet);
+        var len = state.movements.length;
+        if (len > 4) state.movements = state.movements.slice(len-4);
+        state.playerToken[playerIndex] -= myBet;
+        state.port += myBet;
+        state.currentBet = myBet;
+        return;
     }
 };
 
